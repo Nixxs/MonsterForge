@@ -11,8 +11,49 @@ namespace MonsterForge
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        // defining the class level holders for getters and setters
+        public static GameRoot _instance;
+        public static Viewport _viewport;
+        public static Vector2 _screenSize;
+
+        // return the instance of the main game object, this is required by other classes
+        // sometimes like the Art class which needs to gain access to the content pipeline
+        public static GameRoot Instance
+        {
+            get
+            {
+                return _instance;
+            }
+            private set
+            {
+                _instance = value;
+            }
+        }
+
+        // provide access to the viewport of the gameroot
+        public static Viewport Viewport
+        {
+            get
+            {
+                return Instance.GraphicsDevice.Viewport;
+            }
+        }
+
+        // provide access to the screensize, this can be used for things like edge detection 
+        // and what not for enemies or the player character
+        public static Vector2 ScreenSize
+        {
+            get
+            {
+                return new Vector2(Viewport.Width, Viewport.Height);
+            }
+        }
+
+        // the contructor for the main game object
         public GameRoot()
         {
+            Instance = this;
+
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
         }
@@ -40,6 +81,7 @@ namespace MonsterForge
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+            Art.Load(Instance);
 
         }
 
