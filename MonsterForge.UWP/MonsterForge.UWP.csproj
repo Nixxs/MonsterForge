@@ -5,7 +5,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProjectGuid>{E915FBDE-F47C-4A10-8153-34E30FE6C005}</ProjectGuid>
+    <ProjectGuid>{41B73658-B9ED-4864-A532-E0D654ADC5C8}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MonsterForge.UWP</RootNamespace>

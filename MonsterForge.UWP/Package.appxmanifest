@@ -7,11 +7,11 @@
   IgnorableNamespaces="uap mp">
 
   <Identity
-    Name="ca34c2cf-8b4c-40ba-a794-95d79d03f47a"
+    Name="589638d8-2dd0-45e5-940b-0173f391d709"
     Publisher="CN=Nicholasc"
     Version="1.0.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="ca34c2cf-8b4c-40ba-a794-95d79d03f47a" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="589638d8-2dd0-45e5-940b-0173f391d709" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>MonsterForge.UWP</DisplayName>
