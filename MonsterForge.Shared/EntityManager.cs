@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,14 +34,14 @@ namespace MonsterForge
             }
         }
 
-        public static void Update()
+        public static void Update(GameTime gameTime)
         {
             isUpdating = true;
 
             // run the update methods of all the entities
             foreach (Entity entity in entities)
             {
-                entity.Update();
+                entity.Update(gameTime);
             }
 
             isUpdating = false;

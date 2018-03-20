@@ -66,9 +66,9 @@ namespace MonsterForge
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
             base.Initialize();
+
+            EntityManager.Add(PlayerChar.Instance);
         }
 
         /// <summary>
@@ -101,9 +101,10 @@ namespace MonsterForge
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            // TODO: Add your update logic here
-
             base.Update(gameTime);
+
+            // TODO: Add your update logic here
+            EntityManager.Update(gameTime);
         }
 
         /// <summary>
@@ -112,14 +113,16 @@ namespace MonsterForge
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            base.Draw(gameTime);
+
+            GraphicsDevice.Clear(Color.Black);
 
             // TODO: Add your drawing code here
-            spriteBatch.Begin();
-
+            spriteBatch.Begin(SpriteSortMode.Texture, BlendState.Additive);
+            EntityManager.Draw(spriteBatch);
             spriteBatch.End();
 
-            base.Draw(gameTime);
+            
         }
     }
 }
