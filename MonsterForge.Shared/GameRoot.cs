@@ -124,6 +124,7 @@ namespace MonsterForge
             // TODO: Add your drawing code here
             spriteBatch.Begin(SpriteSortMode.Texture, BlendState.Additive);
                 EntityManager.Draw(spriteBatch);
+                spriteBatch.Draw(Art.Pointer, Input.MousePosition, Color.White);
 
                 // START DEBUG
                 string attackPressed;

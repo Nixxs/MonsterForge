@@ -14,7 +14,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)EntityManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GameRoot.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Hitbox.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Input.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MathUtil.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PlayerChar.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Weapon.cs" />
   </ItemGroup>
 </Project>
