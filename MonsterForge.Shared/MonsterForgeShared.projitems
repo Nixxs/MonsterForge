@@ -12,8 +12,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Art.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entity.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)EntityManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GameRoot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Input.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Player.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PlayerChar.cs" />
   </ItemGroup>
 </Project>

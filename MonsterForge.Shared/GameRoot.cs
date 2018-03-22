@@ -53,10 +53,13 @@ namespace MonsterForge
         // the contructor for the main game object
         public GameRoot()
         {
-            Instance = this;
-
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
+            Instance = this;
+            Instance.IsFixedTimeStep = true;
+            Instance.graphics.SynchronizeWithVerticalRetrace = true;
+            Instance.TargetElapsedTime = new System.TimeSpan(0, 0, 0, 0, 16); // about 60 frames per second
         }
 
         /// <summary>
