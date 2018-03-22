@@ -18,6 +18,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Input.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MathUtil.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PlayerChar.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Weapon.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Weapons\Weapon.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Weapons\" />
   </ItemGroup>
 </Project>
