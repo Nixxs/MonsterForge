@@ -13,6 +13,7 @@ namespace MonsterForge
         private static Texture2D _seeker;
         private static Texture2D _bullet;
         private static Texture2D _pointer;
+        private static SpriteFont _debugFont;
 
         public static Texture2D Player
         {
@@ -34,6 +35,11 @@ namespace MonsterForge
             get { return _pointer; }
         }
 
+        public static SpriteFont DebugFont
+        {
+            get { return _debugFont; }
+        }
+
         /// <summary>
         /// A helpful and tidy load method to load all the textures from a one line
         /// Art.Load() in the LoadContent() of GameRoot
@@ -45,6 +51,7 @@ namespace MonsterForge
             _seeker = instance.Content.Load<Texture2D>("Art\\Seeker");
             _bullet = instance.Content.Load<Texture2D>("Art\\Bullet");
             _pointer = instance.Content.Load<Texture2D>("Art\\Pointer");
+            _debugFont = instance.Content.Load<SpriteFont>("DebugFont");
         }
     }
 }

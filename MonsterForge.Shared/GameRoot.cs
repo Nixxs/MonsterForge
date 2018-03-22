@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace MonsterForge
 {
@@ -82,7 +83,6 @@ namespace MonsterForge
 
             // TODO: use this.Content to load your game content here
             Art.Load(Instance);
-
         }
 
         /// <summary>
@@ -104,6 +104,7 @@ namespace MonsterForge
             base.Update(gameTime);
 
             // TODO: Add your update logic here
+            Input.Update();
             EntityManager.Update(gameTime);
         }
 
@@ -119,10 +120,31 @@ namespace MonsterForge
 
             // TODO: Add your drawing code here
             spriteBatch.Begin(SpriteSortMode.Texture, BlendState.Additive);
-            EntityManager.Draw(spriteBatch);
-            spriteBatch.End();
+                EntityManager.Draw(spriteBatch);
 
-            
+                // START DEBUG
+                string attackPressed;
+                if (Input.WasLightAttackPressed())
+                {
+                    attackPressed = "True";
+                } else
+                {
+                    attackPressed = "False";
+                }
+
+                string debugText = String.Format(
+                    "Aim Direction: {0}, {1}\n" +
+                    "Move Direction: {2}, {3}\n" +
+                    "Attack Pressed: {4}",
+                    Input.GetAimDirection().X,
+                    Input.GetAimDirection().Y,
+                    Input.GetMovementDirection().X,
+                    Input.GetMovementDirection().Y,
+                    attackPressed
+                );
+                spriteBatch.DrawString(Art.DebugFont, debugText, new Vector2(50, 50), Color.Yellow);
+                // END DEBUG
+            spriteBatch.End();
         }
     }
 }
