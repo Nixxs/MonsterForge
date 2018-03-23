@@ -139,12 +139,15 @@ namespace MonsterForge
                 string debugText = String.Format(
                     "Aim Direction: {0}, {1}\n" +
                     "Move Direction: {2}, {3}\n" +
-                    "Attack Pressed: {4}",
+                    "Attack Pressed: {4}\n" +
+                    "Player Position: {5}, {6}",
                     Input.GetAimDirection().X,
                     Input.GetAimDirection().Y,
                     Input.GetMovementDirection().X,
                     Input.GetMovementDirection().Y,
-                    attackPressed
+                    attackPressed,
+                    PlayerChar.Instance.Position.X,
+                    PlayerChar.Instance.Position.Y
                 );
                 spriteBatch.DrawString(Art.DebugFont, debugText, new Vector2(50, 50), Color.Yellow);
                 // END DEBUG
