@@ -13,6 +13,7 @@ namespace MonsterForge
         private int _attackCooldownFramesRemaining = 0;
         private int _movementCooldownFramesRemaining = 0;
         private Vector2 _friction;
+        private float _baseSpeed;
         private float _maxSpeed;
 
         public static PlayerChar Instance
@@ -36,11 +37,24 @@ namespace MonsterForge
             Radius = 10; // size of the player character
 
             _weapon = new Weapons.Sword("Sword", 1, 8f, 8, 8, 10);
-            _maxSpeed = 14; // the players max movement speed
+            _baseSpeed = 14; // the players max movement speed
         }
 
         public override void Update(GameTime gameTime)
         {
+            Vector2 movementDirection = Input.GetMovementDirection();
+            Vector2 aim = Input.GetAimDirection();
+
+            //if sprint button is held down player is sprinting so increase max speed
+            if (Input.IsSprintPressed())
+            {
+                _maxSpeed = _baseSpeed * 2.5f;
+            }
+            else
+            {
+                _maxSpeed = _baseSpeed;
+            }
+
             // when the player has movement on cooldown he cant move as responsively
             // this is added after the player attacks
             if (_movementCooldownFramesRemaining <= 0)
@@ -61,11 +75,12 @@ namespace MonsterForge
             Position += Velocity; // update the players position
             Position = Vector2.Clamp(Position, Size / 2, GameRoot.ScreenSize - Size / 2); // keeps the player inside the bounds of the screen
 
-            Vector2 aim = Input.GetAimDirection();
-
             if (aim.LengthSquared() > 0)
             {
                 Orientation = aim.ToAngle();
+            } else if (Input.GetMovementDirection().LengthSquared() > 0)
+            {
+                Orientation = movementDirection.ToAngle();
             }
 
             // cannot attack again unless he is back to 0 cooldown remaining

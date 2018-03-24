@@ -174,5 +174,17 @@ namespace MonsterForge
                 return false;
             }
         }
+
+        public static bool IsSprintPressed()
+        {
+            if (keyboardState.IsKeyDown(Keys.LeftShift) || gamepadState.IsButtonDown(Buttons.A))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
