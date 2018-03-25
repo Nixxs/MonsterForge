@@ -85,6 +85,11 @@ namespace MonsterForge
             }
         }
 
+        public void EquipWeapon(Weapon weapon)
+        {
+            _weapon = weapon;
+        }
+
         // values set here are defined by the parent class
         private PlayerChar()
         {
@@ -96,7 +101,7 @@ namespace MonsterForge
             _maxStamina = 100f;
             Stamina = _maxStamina;
 
-            _weapon = new Weapons.Sword("Sword", 1, 8f, 8, 8, 10);
+            EquipWeapon(new Weapons.Sword("Sword", 1, 8f, 8, 8, 10, 3, 21f, 8, 8, 20));
             _baseSpeed = 14; // the players max movement speed
         }
 
@@ -105,9 +110,14 @@ namespace MonsterForge
             Vector2 movementDirection = Input.GetMovementDirection();
             Vector2 aim = Input.GetAimDirection();
 
-            //if sprint button is held down player is sprinting so increase max speed
+            // stamina costs
+            float DashStaminaCost = 25f;
+            float LightAttackStaminaCost = 20f;
+            float HeavyAttackStaminaCost = 40f;
             float SprintStaminaCost = 1.5f;
-            if (Input.IsSprintPressed() && Stamina > SprintStaminaCost)
+
+            //if sprint button is held down player is sprinting so increase max speed
+            if (Input.IsSprintPressed() && Stamina >= SprintStaminaCost)
             {
                 _maxSpeed = _baseSpeed * 4f;
                 UpdateStamina(-SprintStaminaCost);
@@ -117,8 +127,21 @@ namespace MonsterForge
                 _maxSpeed = _baseSpeed;
             }
 
+            // check if the player dashed
+            if (Input.WasDashPressed() && Stamina >= DashStaminaCost)
+            {
+                // create a vector 2 from the movement direction and a magnitude for dash
+                Vector2 DashVector = MathUtil.FromPolar(movementDirection.ToAngle(), 22f);
+                Velocity = Velocity + DashVector;
+
+                // dashing removes the movement frames cooldown
+                _movementCooldownFramesRemaining = 0;
+                // apply the dash stamina cost
+                UpdateStamina(-DashStaminaCost);
+            }
+
             // when the player has movement on cooldown he cant move as responsively
-            // this is added after the player attacks
+            // if he is dashing movement isn't slowed. This is added after the player attacks
             if (_movementCooldownFramesRemaining <= 0)
             {
                 _friction = new Vector2(0.1f,0.1f);
@@ -130,7 +153,7 @@ namespace MonsterForge
             // add to the velocity of the player if the player isn't already on max speed
             if (Velocity.LengthSquared() < _maxSpeed)
             {
-                Velocity = Velocity + Input.GetMovementDirection();
+                Velocity = Velocity + movementDirection;
             } 
             
             Velocity -= Velocity * _friction; // simulate friction
@@ -141,14 +164,13 @@ namespace MonsterForge
             if (aim.LengthSquared() > 0)
             {
                 Orientation = aim.ToAngle();
-            } else if (Input.GetMovementDirection().LengthSquared() > 0)
+            } else if (movementDirection.LengthSquared() > 0)
             {
                 Orientation = movementDirection.ToAngle();
             }
 
-            float LightAttackStaminaCost = 20f;
             // cannot attack again unless he is back to 0 cooldown remaining and has enough stam to do it
-            if (Input.WasLightAttackPressed() && _attackCooldownFramesRemaining <= 0 && Stamina > LightAttackStaminaCost)
+            if (Input.WasLightAttackPressed() && _attackCooldownFramesRemaining <= 0 && Stamina >= LightAttackStaminaCost)
             {
                 _weapon.LightAttack(Position, aim);
                 _attackCooldownFramesRemaining = _weapon.LightAttackCooldown;
@@ -157,6 +179,17 @@ namespace MonsterForge
 
                 // the stamina cost of a light attack
                 UpdateStamina(-LightAttackStaminaCost);
+            }
+
+            if (Input.WasHeavyAttackPressed() && _attackCooldownFramesRemaining <= 0 && Stamina >= HeavyAttackStaminaCost)
+            {
+                _weapon.HeavyAttack(Position, aim);
+                _attackCooldownFramesRemaining = _weapon.HeavyAttackCooldown;
+                // add a movement cooldown that is twice the length of the weapon attack cooldown
+                _movementCooldownFramesRemaining = _weapon.HeavyAttackCooldown * 2;
+
+                // the stamina cost of a light attack
+                UpdateStamina(-HeavyAttackStaminaCost);
             }
 
             // if there coooldown frames have been added, reduce the cooldown by one frame

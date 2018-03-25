@@ -8,11 +8,18 @@ namespace MonsterForge
     public abstract class Weapon
     {
         protected string name;
+
         protected int lightAttackDamage;
         protected float lightAttackSpeed;
         protected int lightAttackFrames;
         protected int lightAttackRadius;
         protected int lightAttackCooldown;
+
+        protected int heavyAttackDamage;
+        protected float heavyAttackSpeed;
+        protected int heavyAttackFrames;
+        protected int heavyAttackRadius;
+        protected int heavyAttackCooldown;
 
         public string Name
         {
@@ -56,6 +63,44 @@ namespace MonsterForge
             protected set { lightAttackCooldown = value; }
         }
 
+        public int HeavyAttackDamage
+        {
+            get { return heavyAttackDamage; }
+
+            protected set { heavyAttackDamage = value; }
+        }
+
+        public float HeavyAttackSpeed
+        {
+            get { return heavyAttackSpeed; }
+
+            protected set { heavyAttackSpeed = value; }
+        }
+
+        public int HeavyAttackFrames
+        {
+            get { return heavyAttackFrames; }
+
+            protected set { heavyAttackFrames = value; }
+        }
+
+        public int HeavyAttackRadius
+        {
+            get { return heavyAttackRadius; }
+
+            protected set { heavyAttackRadius = value; }
+        }
+
+        public int HeavyAttackCooldown
+        {
+            get { return heavyAttackCooldown; }
+
+            protected set { heavyAttackCooldown = value; }
+        }
+
+
         public abstract void LightAttack(Vector2 position, Vector2 aim);
+
+        public abstract void HeavyAttack(Vector2 position, Vector2 aim);
     }
 }

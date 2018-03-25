@@ -17,6 +17,16 @@ namespace MonsterForge
 
         private static bool isAimingWithMouse = false;
 
+        // Gamepad Controls
+        private static Buttons SprintButton = Buttons.A;
+        private static Buttons DashButton = Buttons.B;
+        private static Buttons LightAttackButton = Buttons.RightShoulder;
+        private static Buttons HeavyAttackButton = Buttons.RightTrigger;
+
+        // Keyboard Mouse Controls (attacks are handled with mouse button specific functions)
+        private static Keys SprintKey = Keys.LeftShift;
+        private static Keys DashKey = Keys.Space;
+
         public static Vector2 MousePosition
         {
             get
@@ -62,6 +72,18 @@ namespace MonsterForge
         public static bool WasMouseLeftButtonPressed()
         {
             if (lastMouseState.LeftButton == ButtonState.Released && mouseState.LeftButton == ButtonState.Pressed)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public static bool WasMouseRightButtonPressed()
+        {
+            if (lastMouseState.RightButton == ButtonState.Released && mouseState.RightButton == ButtonState.Pressed)
             {
                 return true;
             }
@@ -122,26 +144,9 @@ namespace MonsterForge
             Vector2 direction = gamepadState.ThumbSticks.Right;
             direction.Y = direction.Y * -1; // invert the y-axis direction
 
-            if (keyboardState.IsKeyDown(Keys.Left))
-            {
-                direction.X -= 1;
-            }
-            if (keyboardState.IsKeyDown(Keys.Right))
-            {
-                direction.X += 1;
-            }
-            if (keyboardState.IsKeyDown(Keys.Up))
-            {
-                direction.Y -= 1;
-            }
-            if (keyboardState.IsKeyDown(Keys.Down))
-            {
-                direction.Y += 1;
-            }
-
             if (direction == Vector2.Zero)
             {
-                return Vector2.Zero;
+                return GetMovementDirection();
             }
             else
             {
@@ -155,7 +160,7 @@ namespace MonsterForge
 
             if (direction == Vector2.Zero)
             {
-                return Vector2.Zero;
+                return GetMovementDirection();
             }
             else
             {
@@ -165,7 +170,31 @@ namespace MonsterForge
 
         public static bool WasLightAttackPressed()
         {
-            if (WasButtonPressed(Buttons.RightShoulder) || WasMouseLeftButtonPressed() || WasKeyPressed(Keys.Space))
+            if (WasButtonPressed(LightAttackButton) || WasMouseLeftButtonPressed())
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public static bool WasHeavyAttackPressed()
+        {
+            if (WasButtonPressed(HeavyAttackButton) || WasMouseRightButtonPressed())
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public static bool WasDashPressed()
+        {
+            if (WasButtonPressed(DashButton) || WasKeyPressed(DashKey))
             {
                 return true;
             }
@@ -177,7 +206,7 @@ namespace MonsterForge
 
         public static bool IsSprintPressed()
         {
-            if (keyboardState.IsKeyDown(Keys.LeftShift) || gamepadState.IsButtonDown(Buttons.A))
+            if (keyboardState.IsKeyDown(SprintKey) || gamepadState.IsButtonDown(SprintButton))
             {
                 return true;
             }

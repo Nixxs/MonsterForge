@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -16,9 +17,9 @@ namespace MonsterForge
         /// <param name="velocity">the speed of the hitbox movement</param>
         /// <param name="frames">number of frames the hitbox lasts for</param>
         /// <param name="radius">the size of the hitbox</param>
-        public Hitbox (Vector2 position, Vector2 velocity, int frames, int radius)
+        public Hitbox (Texture2D texture, Vector2 position, Vector2 velocity, int frames, int radius)
         {
-            image = Art.Hitbox;
+            image = texture;
             Position = position;
             Velocity = velocity;
             Orientation = Velocity.ToAngle();
