@@ -18,7 +18,7 @@ namespace MonsterForge
         public Vector2 Position;
         public Vector2 Velocity;
         public float Orientation;
-        public float Radius = 10; // used for circular collision detection
+        public float Radius = 20; // used for circular collision detection
         public bool IsExpired; // true if the entity was destroyed and should be deleted
 
         // if the image has been set then the size of the object is equal to the image size

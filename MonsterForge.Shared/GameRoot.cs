@@ -73,6 +73,7 @@ namespace MonsterForge
             base.Initialize();
 
             EntityManager.Add(PlayerChar.Instance);
+            EntityManager.Add(Enemy.CreateSeeker(new Vector2(100,100)));
         }
 
         /// <summary>

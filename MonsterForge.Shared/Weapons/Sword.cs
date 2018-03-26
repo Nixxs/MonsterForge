@@ -47,7 +47,7 @@ namespace MonsterForge.Weapons
             float inverseAimAngle = (aim * -1).ToAngle();
             Vector2 LightAttackRecoil = MathUtil.FromPolar(inverseAimAngle, 4f);
             Vector2 AttackVelocity = MathUtil.FromPolar(aimAngle, LightAttackSpeed);
-            EntityManager.Add(new Hitbox(Art.Bullet, position, AttackVelocity, LightAttackFrames, LightAttackRadius));
+            EntityManager.Add(new AttackBox(Art.Bullet, position, AttackVelocity, LightAttackFrames, LightAttackRadius, LightAttackDamage));
 
             PlayerChar.Instance.Velocity = PlayerChar.Instance.Velocity + LightAttackRecoil;
         }
@@ -57,7 +57,7 @@ namespace MonsterForge.Weapons
             float aimAngle = aim.ToAngle();
             Vector2 HeavyAttackCharge = MathUtil.FromPolar(aimAngle, 75f);
             Vector2 AttackVelocity = MathUtil.FromPolar(aimAngle, HeavyAttackSpeed);
-            EntityManager.Add(new Hitbox(Art.Hitbox, position, AttackVelocity, HeavyAttackFrames, HeavyAttackRadius));
+            EntityManager.Add(new AttackBox(Art.Hitbox, position, AttackVelocity, HeavyAttackFrames, HeavyAttackRadius, HeavyAttackDamage));
 
             PlayerChar.Instance.Velocity = PlayerChar.Instance.Velocity + HeavyAttackCharge;
         }
