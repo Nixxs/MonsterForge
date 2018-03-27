@@ -115,6 +115,16 @@ namespace MonsterForge
             // TO DO: hitbox to player collision
 
             // TO DO: Enemy to player collision
+            for (int i = 0; i < enemies.Count; i++)
+            {
+                if (IsColliding(enemies[i], PlayerChar.Instance))
+                {
+                    enemies[i].HandleCollision(PlayerChar.Instance);
+
+                    Vector2 d = PlayerChar.Instance.Position - enemies[i].Position;
+                    PlayerChar.Instance.Velocity += 10 * d / (d.LengthSquared() + 1);
+                }
+            }
         }
 
         public static void Update(GameTime gameTime)

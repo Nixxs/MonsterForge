@@ -98,7 +98,7 @@ namespace MonsterForge
         }
 
         // COLLISION Handling
-        public void HandleCollision(Enemy other)
+        public void HandleCollision(Entity other)
         {
             // when running into another enemy bounce off in the other direction
             // force is larger the cloase they get
@@ -111,6 +111,7 @@ namespace MonsterForge
         {
             Enemy enemy = new Enemy(Art.Seeker, position, 5); // create enemy object
             enemy.AddBehaviour(enemy.FollowPlayer(0.45f)); // add the follow player behaviour
+            enemy.AddBehaviour(enemy.ShootPlayerInterval(60)); // add the shoot player behviour shoot him every 60 frames
 
             return enemy;
         }
@@ -127,6 +128,31 @@ namespace MonsterForge
                 if (Velocity != Vector2.Zero)
                 {
                     Orientation = (PlayerChar.Instance.Position - Position).ToAngle();
+                }
+
+                yield return 0;
+            }
+        }
+
+        IEnumerable<int> ShootPlayerInterval(int interval = 60)
+        {
+            int countDown = 60;
+
+            while (true)
+            {
+                if (countDown <= 0)
+                {
+                    float aimAngle = Velocity.ToAngle();
+                    float inverseAimAngle = (Velocity * -1).ToAngle();
+
+                    Vector2 AttackVelocity = MathUtil.FromPolar(aimAngle, 10f);
+                    EntityManager.Add(new HitBox(Art.Bullet, Position, AttackVelocity, 25, 8, 5));
+
+                    countDown = interval;
+                }
+                else
+                {
+                    countDown -= 1;
                 }
 
                 yield return 0;
